@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="2018.06.01" orientation="orthogonal" renderorder="right-up" width="19" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" source="口袋妖怪2.tsx"/>
+ <layer id="1" name="块层 1" width="19" height="14">
+  <data encoding="base64" compression="zlib">
+   eJwNwwOUEAYAANDrrg7ZWrbbst2y7RpyLdvmsm3bdi0s20vLri333/s/XEBAQKBBhjeCwYYYapgRjWRkoxjVaEY3hjGNZWzjGNd4xjeBCf3BRCY2iUlNZnJTmNJUpjaNaU1nejOY0UxmNotZ/dGfzGZ2c5jTXOY2j3nNZ34LWNBCFraIRS1mcUtY0p8tZWnLWNZylreCFa1kZatY1WpWt4Y1rWVt61jXeta3gQ1tZGOb+Iu/+pu/29RmNreFLW1la9vY1j9sZ3s72NFOdraLXe1md3vY0172to997Wd/BzjQQQ52iEMd5nBHONJRjvZPxzjWcY53ghOd5GSnONVpTneGM53lbOc413nOd4ELXeRil7jUZS53hStd5WrXuNZ1rneDG93kZre41W1ud4c73eVu97jXfe73gAc95GGP+JdHPeZxT/i3Jz3lac941nOe94IXveRlr3jVa173hje95W3/8Y53ved9H/ivD33kY5/41Gc+94UvfeVr3/jWd773P//3gx/95Ge/+NVvBoTDQIMMbwSDDTHUMCP6HafVf8M=
+  </data>
+ </layer>
+</map>
