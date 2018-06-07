@@ -1,6 +1,7 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
 #include "Monster.h"
+#include "sqlite3.h"
 #pragma execution_character_set("utf-8")
 
 USING_NS_CC;
@@ -30,6 +31,7 @@ bool HelloWorld::init()
 	schedule(schedule_selector(HelloWorld::UpdateTime), 1.0f, kRepeatForever, 0);
 	schedule(schedule_selector(HelloWorld::createMonsters), 3.0f, kRepeatForever, 0);
 	schedule(schedule_selector(HelloWorld::hitByMonster), 0.1f, kRepeatForever, 0);
+	
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();
 
@@ -56,7 +58,7 @@ bool HelloWorld::init()
 	pT->setMidpoint(Point(0, 1));
 	pT->setPercentage(100);
 	pT->setPosition(Vec2(origin.x + 14 * pT->getContentSize().width, origin.y + visibleSize.height - 2 * pT->getContentSize().height));
-	addChild(pT, 1);
+	addChild(pT, 2);
 	sp0->setAnchorPoint(Vec2(0, 0));
 	sp0->setPosition(Vec2(origin.x + pT->getContentSize().width, origin.y + visibleSize.height - sp0->getContentSize().height));
 	addChild(sp0, 1);
@@ -135,7 +137,7 @@ bool HelloWorld::init()
 	auto y_text = Label::create("Y", "fonts/arial.ttf", 36);
 	auto y_menuItem = MenuItemLabel::create(y_text, CC_CALLBACK_0(HelloWorld::Dead, this));
 	y_menuItem->setPosition(visibleSize.width - 50, 50);
-	
+
 	
 	auto menu = Menu::create(x_menuItem, y_menuItem, w_menuItem, s_menuItem, a_menuItem, d_menuItem, NULL);
 	menu->setPosition(Vec2::ZERO);
@@ -148,8 +150,29 @@ bool HelloWorld::init()
 	//设置地图锚点
 	map->setAnchorPoint(Vec2(0.5, 0.5));
 	//拉伸背景图铺满游戏屏幕
-	map->setScale(1.7);
+	map->setScale(Director::getInstance()->getContentScaleFactor());
 	this->addChild(map, 0);
+
+	//数据库保存分数
+	std::string path = "save.db";
+	int result = sqlite3_open(path.c_str(), &database);
+	std::string sql = "create table hero(ID int primary key not null, score int)";
+	result = sqlite3_exec(database, sql.c_str(), NULL, NULL, NULL);
+	sql = "insert into hero values(1,0)";
+	result = sqlite3_exec(database, sql.c_str(), NULL, NULL, NULL);
+
+	//显示储存的击杀怪物的分数
+	//从数据库中获得当前的分数
+	int row, col;
+	char** re;
+	sqlite3_get_table(database, "select * from hero", &re, &row, &col, NULL);
+	sqlite3_free_table(re);
+	std::string score = re[1*col+1];
+	//创建Label显示
+	score_text = Label::create(score, "fonts/arial.ttf", 36);
+	score_text->setPosition(visibleSize.width / 2, visibleSize.height - 50);
+	this->addChild(score_text, 1);
+
     return true;
 }
 
@@ -262,6 +285,20 @@ void HelloWorld::Attack() {
 		if (collision != NULL) {
 			//移除怪物
 			fac->removeMonster(collision);
+
+			//从数据库中获得当前的分数
+			int row, col;
+			char** re;
+			sqlite3_get_table(database, "select * from hero", &re, &row, &col, NULL);
+			sqlite3_free_table(re);
+			//击杀怪物后，分数加一，写回数据库
+			int next_score = std::atoi(re[1*col+1]) + 1;
+			std::string nextScore = std::to_string(next_score);
+			std::string sql = "update hero set score = " + nextScore + " where id = 1";
+			int result = sqlite3_exec(database, sql.c_str(), NULL, NULL, NULL);
+			//修改界面分数
+			score_text->setString(nextScore);
+
 			//回血
 			if (pT->getPercentage() < 80) {
 				pT->runAction(HPPlus20);

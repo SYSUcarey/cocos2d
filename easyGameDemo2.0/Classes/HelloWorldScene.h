@@ -1,6 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "Monster.h"
+#include "sqlite3.h"
 using namespace cocos2d;
 
 class HelloWorld : public cocos2d::Scene
@@ -33,4 +34,6 @@ private:
 	bool done = true;
 	void HelloWorld::createMonsters(float dt);
 	void HelloWorld::hitByMonster(float dt);
+	sqlite3* database = NULL;
+	cocos2d::Label* score_text;
 };
