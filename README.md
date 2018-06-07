@@ -40,4 +40,5 @@
 4.easyGameDemo2.0
 * 碰撞事件
 * tilemap制作背景图片
+* Sqlite3数据库简单使用
 
