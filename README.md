@@ -6,7 +6,7 @@
 
 @blog: [https://blog.csdn.net/cbb944131226](https://blog.csdn.net/cbb944131226) 
 
-@github: [https://github.com/SYSUcarey](https://github.com/SYSUcarey) 
+@github: [https://github.com/SYSUcarey/cocos2d](https://github.com/SYSUcarey/cocos2d)
 
 @[本人学院](http://sdcs.sysu.edu.cn/) 
 
@@ -14,8 +14,8 @@
 
 大二下cocos2d学习
 项目环境：
-*  cocos2d-x-3.16
-*  python 2.7.15
+-  cocos2d-x-3.16
+-  python 2.7.15
 
 ## 项目
 
@@ -47,8 +47,10 @@
 主要知识点：
 * 贴图做帧动画
 * 调度器
+
 ***
-4.easyGameDemo2.0
+
+4. easyGameDemo2.0
 
 说明：继承实验3的一个简单的4399智障动作类游戏，wasd移动，被怪物碰到扣血至死亡，x攻击怪物，击杀怪物回血，并记录击杀怪物数量。
 
@@ -57,3 +59,13 @@
 * tilemap制作背景图片
 * Sqlite3数据库简单使用
 
+***
+
+5. thunder
+
+说明：类似于“雷电”这样的飞机大战陨石的游戏。
+
+主要知识点：
+- 音乐、音效处理
+- 键盘点击、松开、触摸事件监听
+- 自定义事件监听
