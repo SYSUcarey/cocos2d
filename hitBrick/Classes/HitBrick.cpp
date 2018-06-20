@@ -177,7 +177,7 @@ void HitBrick::update(float dt) {
 	}
 
 	// 如果处于蓄力状态,开始蓄力
-	if (spHolded && spFactor <= 800) {
+	if (onBall && spHolded && spFactor <= 800) {
 		spFactor += 5;
 	}
 
